@@ -1,0 +1,30 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: SWAKES
+  latitude: !secret home_lat
+  longitude: !secret home_long
+  elevation: 10
+  unit_system: metric
+  time_zone: Europe/London
+  packages: !include_dir_named components/packages
+  allowlist_external_dirs:  # renamed from deprecated 'whitelist_external_dirs'
+    - /config/www
+    - /config/www/tmp
+customize: !include customize.yaml
+
+lovelace:
+  mode: yaml
+  dashboards:
+    swakes-dashboard:  # MUST contain a hyphen!
+      mode: yaml
+      title: SWAKES
+      icon: mdi:monitor-dashboard
+      show_in_sidebar: true
+      filename: ui-lovelace.yaml
+
+frontend:
+  themes: !include_dir_merge_named themes
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
